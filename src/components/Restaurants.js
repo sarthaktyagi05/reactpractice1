@@ -1,20 +1,12 @@
-import { useEffect,useState } from "react";
+
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
-import { REST_ID } from "../utils/constants";
+import useRestaurantsMenu from "../utils/useRestaurantsMenu";
+
 
 const Restaurants=()=>{
-    const [items,setItems]=useState(null);
     const {resId}=useParams();
-    useEffect(()=>{
-        fetchdata();
-    },[]);
-    
-    const fetchdata = async ()=>{
-        const data= await fetch(REST_ID + resId );
-        let json= await data.json();
-        setItems(json?.data?.cards);
-    }
+    const items=useRestaurantsMenu(resId);
     if(items===null){
         return <Shimmer/>
     }
@@ -25,8 +17,8 @@ const Restaurants=()=>{
             <div>
                 <ul>
                     {
-                    items[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards.map((item) =>  {
-                     return  <li key={item?.card?.info?.id}>{item?.card?.info?.name +" --------  Price for two " + item?.card?.info?.price/100 }</li>
+                    items[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card?.itemCards.map((item) =>  {
+                     return  <li key={item?.card?.info?.id}>{item?.card?.info?.name +" --------  Price " + (item?.card?.info?.defaultPrice/100 || item?.card?.info?.price/100)}</li>
                     })
                 }
                 </ul>
