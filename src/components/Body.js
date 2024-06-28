@@ -1,4 +1,4 @@
-import RestaurantsCard from "./RestaurantsCard";
+import RestaurantsCard, { restaurantsPromoted } from "./RestaurantsCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -9,7 +9,8 @@ const Body = () => {
   const [filteredfRestaurants, setfilteredfRestaurants] = useState([]);
   const [enable, setenable] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const onlineStatus=useOnlineStatus();
+  const Restaurantpromoted = restaurantsPromoted(RestaurantsCard);
+  const onlineStatus = useOnlineStatus();
   useEffect(() => {
     fetchData();
   }, []);
@@ -28,22 +29,30 @@ const Body = () => {
     );
   };
   
-if(!onlineStatus){
-  return <h1>Looks like you're offline, Please check your internet connection 📶</h1>
-}
-  return listOfRestaurants.length === 0?<Shimmer/> :(
+  if (!onlineStatus) {
+    return (
+      <h1>
+        Looks like you're offline, Please check your internet connection 📶
+      </h1>
+    );
+  }
+  return listOfRestaurants.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search-filter">
+      <div className="flex m-3 justify-between">
+        <div className="search-filter mx-3">
           <input
             type="text"
+            className="border border-solid border-black rounded-2xl px-2"
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
+            placeholder="Search Restaurants"
           />
           <button
-            className="search-btn"
+            className="bg-red-400 px-4 rounded-xl mx-2"
             onClick={() => {
               const searchData = listOfRestaurants.filter((res) =>
                 res.info.name.toLowerCase().includes(searchText.toLowerCase())
@@ -56,7 +65,7 @@ if(!onlineStatus){
           </button>
         </div>
         <button
-          className="button"
+          className="bg-red-400 px-4 rounded-xl mx-2"
           onClick={() => {
             let filterdata = listOfRestaurants.filter(
               (res) => res.info.avgRating > 4.4
@@ -75,9 +84,17 @@ if(!onlineStatus){
         </button>
       </div>
 
-      <div className="cards">
+      <div className="flex flex-wrap align-middle">
         {filteredfRestaurants?.map((rests) => {
-          return <Link key={rests.info.id} to={"/restaurants/" + rests.info.id}><RestaurantsCard  resdata={rests} /> </Link>;
+          return (
+            <Link key={rests.info.id} to={"/restaurants/" + rests.info.id}>
+              {rests.info.promoted === true ? (
+                <Restaurantpromoted resdata={rests} />
+              ) : (
+                <RestaurantsCard resdata={rests} />
+              )}
+            </Link>
+          );
         })}
       </div>
     </div>
