@@ -6,6 +6,7 @@ import RestaurantCategory from "./RestaurantCategory";
 const Restaurants = () => {
   const { resId } = useParams();
   const items = useRestaurantsMenu(resId);
+  //console.log(items);
 
   if (items === null) {
     return <Shimmer />;
@@ -15,7 +16,7 @@ const Restaurants = () => {
     <>
       <div className="w-6/12 m-auto text-center p-3">
         <h1 className="font-bold  items-center size">{items[2]?.card?.card?.info?.name}</h1>
-        <h2 className="font-bold  items-center text-fuchsia-400">{items[2]?.card?.card?.info?.cuisines.join(",")}</h2>
+        <h2 className="font-bold  items-center text-fuchsia-400">{items[2]?.card?.card?.info?.cuisines.join(",")}  ({items[2]?.card?.card?.info?.costForTwoMessage})  </h2>
       </div>
       <RestaurantCategory
         data={items[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(

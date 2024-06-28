@@ -2,6 +2,7 @@ import { useState } from "react";
 import ItemList from "./ItemsList";
 
 const RestaurantCategory=(props)=>{
+    
     const [showItem,setShowItem]=useState(false);
     const handleclick=()=>{
         setShowItem(!showItem);
@@ -12,15 +13,13 @@ const RestaurantCategory=(props)=>{
             {
             props.data.map((item)=>{
                 return(
-                    <div className="shadow-xl  bg-slate-50 p-12 rounded-lg my-5">
+                    <div className="shadow-xl  bg-slate-50 p-3 rounded-lg my-5 cursor-pointer">
                         <div className="flex justify-between font-bold text-lg" onClick={handleclick}>
                             <span>{item?.card?.card?.title} ({item?.card?.card?.itemCards?.length})</span>
                             <span>🔽</span>
                         </div>
-
-                        <div>
-                        {showItem &&  <ItemList itemsData={item}/>} 
-                        </div>
+                        {showItem &&  <ItemList itemsData={item?.card?.card?.itemCards}/>} 
+                        
 
                     </div>
                 )
