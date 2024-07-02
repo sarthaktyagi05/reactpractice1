@@ -39,7 +39,7 @@ const Body = () => {
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="body">
+    <div className="body m-auto">
       <div className="flex m-3 justify-between">
         <div className="search-filter mx-3">
           <input
@@ -84,7 +84,7 @@ const Body = () => {
         </button>
       </div>
 
-      <div className="flex flex-wrap align-middle">
+      <div className="flex flex-wrap w-10/12 m-auto  ">
         {filteredfRestaurants?.map((rests) => {
           return (
             <Link key={rests.info.id} to={"/restaurants/" + rests.info.id}>

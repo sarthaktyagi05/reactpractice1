@@ -3,7 +3,7 @@ const RestaurantsCard =(props) => {
     const {info}=props.resdata;
    
      return (
-       <div className="w-[300px] border border-solid-black m-3 bg-slate-200 rounded-2xl">
+       <div className="w-[300px] border border-solid-black m-3 bg-slate-200 rounded-2xl ">
          <div>
            <img
              alt="restaurent image"

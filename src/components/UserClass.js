@@ -16,14 +16,15 @@ class UserClass extends React.Component{
         const{name,location}=this.props;
         const count=this.state.count;
         return(
-            <div className="user-class">
+            <div className="w-6/12 border-l-black border-dotted  bg-orange-300 p-10 m-auto my-8 rounded-lg">
+                <div className="space-y-5">
                 <h1>Count: {count}</h1>
                 <button onClick={()=>{
                     this.setState({
                         count:this.state.count+1,
                     })
                 
-                }}>Count_increase</button>
+                }} className="bg-green-400 rounded-lg w-70 p-2 m-10">Count_increase</button>
                 <button onClick={()=>{
                     if(count===0){
                         this.setState({
@@ -35,10 +36,11 @@ class UserClass extends React.Component{
                       count:this.state.count-1,
                         })
                 
-                }}>Count_decrease</button>
+                }} className="bg-red-500 text-black rounded-lg w-70 p-2 m-10">Count_decrease</button>
                 <h3>name:{name}</h3>
                 <h3>loaction :{location}</h3>
                 <h3>contact:7845611464</h3>
+                </div>
             </div>
         );
     }
